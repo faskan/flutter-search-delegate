@@ -31,7 +31,10 @@ class MyHomePage extends StatelessWidget {
       body: TextFormField(
         decoration: InputDecoration(
           suffixIcon: IconButton(onPressed: () async {
-            String? result = await showSearch(context: context, delegate: CustomSearchDelegate());
+            String? result = await showSearch<String?>(context: context, delegate: CustomSearchDelegate());
+            if(result != null){
+              print(result);
+            }
           }, icon: const Icon(Icons.search),)
         ),
       ),
@@ -46,9 +49,12 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
   }
 
   @override
-  Widget? buildLeading(BuildContext context) {
-    return null;
-  }
+  Widget buildLeading(BuildContext context) => IconButton(
+    icon: const BackButtonIcon(),
+    onPressed: () {
+      close(context, null);
+    },
+  );
 
   @override
   Widget buildResults(BuildContext context) {
