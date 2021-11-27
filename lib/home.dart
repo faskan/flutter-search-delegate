@@ -8,9 +8,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String userName = "admin";
-  String password = "";
-
+  late String username;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,29 +19,33 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           TextFormField(
-              decoration: InputDecoration(label: Text("Username")),
-              onChanged: (value) => setState(() {
-                userName = value;
-              })),
+            decoration: InputDecoration(label: Text("Username")),
+            onChanged: (value) => setState((){
+              username = value;
+            }),
+          ),
           TextFormField(
-              decoration: InputDecoration(label: Text("Password")),
-              onChanged: (value) => setState(() {
-                password = value;
-              })),
+            decoration: InputDecoration(label: Text("Password")),
+            onChanged: (value) => setState((){
+              password = value;
+            }),
+          ),
           ElevatedButton(
             onPressed: () {
-              if(userName == 'admin' && password == 'admin') {
-                print('success');
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Failure')),
-                );
-              }
+              submit(username, password);
             },
             child: const Text('Submit'),
           )
         ],
       ),
     );
+  }
+}
+
+void submit(String username, String password) {
+  if(username == "admin" && password == "admin") {
+    print("success");
+  } else {
+    print("failure");
   }
 }
